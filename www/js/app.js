@@ -13,6 +13,8 @@ angular.module('todo', ['ionic'])
  */
 .factory('Projects', function() {
   return {
+
+    // show all projects
     all: function() {
       var projectString = window.localStorage['projects'];
       if(projectString) {
@@ -20,26 +22,32 @@ angular.module('todo', ['ionic'])
       }
       return [];
     },
+
+    // save a projects
     save: function(projects) {
       window.localStorage['projects'] = angular.toJson(projects);
     },
+
+    // add a new project
     newProject: function(projectTitle) {
-      // Add a new project
+
       return {
         title: projectTitle,
         tasks: []
       };
     },
+
+    // return last project index
     getLastActiveIndex: function() {
       return parseInt(window.localStorage['lastActiveProject']) || 0;
     },
+
+    // set the last project index
     setLastActiveIndex: function(index) {
       window.localStorage['lastActiveProject'] = index;
     }
   }
 })
-
-
 
 /*
 .controller('TodoCtrl', function($scope) {
@@ -49,7 +57,8 @@ angular.module('todo', ['ionic'])
   ];
 })
 */
-.controller('TodoCtrl', function($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate) {
+
+.controller('TodoCtrl', function($scope, $ionicModal, Projects, $ionicSideMenuDelegate, $timeout, $ionicPopup) {
 
   // A utility function for creating a new project
   // with the given projectTitle
@@ -82,12 +91,23 @@ angular.module('todo', ['ionic'])
     $ionicSideMenuDelegate.toggleLeft(false);
   };
 
-  // Create our modal
+  // MODALS
+  // load templates
+  // new task modal
   $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
     $scope.taskModal = modal;
   }, {
     scope: $scope
   });
+
+  // Edit and load the Modal
+  $ionicModal.fromTemplateUrl('edit-task.html', function(modal) {
+    $scope.editTaskModal = modal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+
 
   $scope.createTask = function(task) {
     if(!$scope.activeProject || !task) {
@@ -100,16 +120,72 @@ angular.module('todo', ['ionic'])
 
     // Inefficient, but save all the projects
     Projects.save($scope.projects);
-
     task.title = "";
   };
 
+  // Open create task modal
   $scope.newTask = function() {
     $scope.taskModal.show();
+    task.title = "";
   };
 
+  // Open new task modal
+  $scope.editTask = function(i, task) {
+    $scope.task = {title: task.title, isDone: task.isDone};
+    $scope.taskIndex = i;
+    $scope.editTaskModal.show();
+  };
+
+  // Update new task modal
+  // Called when the form is submitted
+  $scope.updateTask = function(i, task) {
+    if (!$scope.activeProject || !task) {
+      return;
+    }
+    $scope.activeProject.tasks[i] = task;
+    $scope.editTaskModal.hide();
+
+    // Inefficient, but save all the projects
+    Projects.save($scope.projects);
+
+  };
+
+  // delete selected task
+  $scope.deleteTask = function(i, task) {
+    if (!$scope.activeProject || !task ) {
+      return;
+    }
+    console.log("start deleting");
+    $scope.showConfirm(function() {
+      console.log("confirmed to delete task "+i);
+      $scope.activeProject.tasks.splice(i,1);
+      Projects.save($scope.projects);
+    });
+  }
+
+  // A confirm dialog
+  $scope.showConfirm = function(onYes, onNo) {
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'Delete Task',
+     template: 'Are you sure you want to delete this task?'
+   });
+   confirmPopup.then(function(res) {
+     if(res) {
+       onYes();
+     } else {
+       if (onNo)
+        onNo();
+     }
+   });
+  };
+
+  // "Cancel" button on new task page
   $scope.closeNewTask = function() {
     $scope.taskModal.hide();
+  }
+  // "Cancel" button on edit task page
+  $scope.closeEditTask = function() {
+    $scope.editTaskModal.hide();
   }
 
   $scope.toggleProjects = function() {
@@ -187,6 +263,3 @@ angular.module('todo', ['ionic'])
   });
 })
 */
-
-
-

@@ -2,6 +2,10 @@ This is an addon starter template for the [Ionic Framework](http://ionicframewor
 
 ## How to use this template
 
+#### Extend the Ionic Example App
+
+http://edlovesjava.github.io/project/intro/2014/12/20/expand-the-ionic-example.html
+
 *This template does not work on its own*. It is missing the Ionic library, and AngularJS.
 
 To use this, either create a new ionic project using the ionic node.js utility, or copy and paste this into an existing Cordova project and download a release of Ionic separately.

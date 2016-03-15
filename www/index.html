@@ -33,8 +33,25 @@
   </ion-header-bar>
   <ion-content scroll="false">
     <ion-list>
-      <ion-item ng-repeat="task in activeProject.tasks">
-        {{task.title}}
+      <ion-item class="item" ng-repeat="task in activeProject.tasks">
+        <!-- <ion-checkbox class="item-text-wrap" style="border:none;" ng-model="task.isDone"  ng-model="task.isDone" ng-click="doneClicked($index, task)" ng-true-value="'YES'" ng-false-value="'NO'"></ion-checkbox> -->
+        <!-- <i class="icon ion-edit" ng-click="editTask($index, task)"><span> Edit</span></i> -->
+
+          <div class="item item-button-right">
+            <!-- <ion-checkbox class="item-text-wrap" style="border:none;" ng-model="task.isDone" ng-click="doneClicked($index, task)" ng-true-value="'YES'" ng-false-value="'NO'"></ion-checkbox> -->
+              {{task.title}}
+              <div class="buttons">
+                <!--  Add multiple buttons
+                <button class="button button-positive" ng-click="editTask($index, task)">
+                  <i class="icon ion-edit"></i>
+                </button>
+                -->
+                <button class="button button-positive" ng-click="editTask($index, task)">
+                  <i class="icon ion-edit"></i>
+                </button>
+              </div>
+          </div>
+
       </ion-item>
     </ion-list>
   </ion-content>
@@ -57,27 +74,18 @@
       </ion-list>
     </ion-content>
   </ion-side-menu>
-
-
-
   </ion-side-menus>
 
-
-
-<!--Creating task -->
+<!--Creating Task -->
 <script id="new-task.html" type="text/ng-template">
-
   <div class="modal">
-
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
       <h1 class="title">New Task</h1>
       <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
     </ion-header-bar>
-
     <!-- Modal content area -->
     <ion-content>
-
       <form ng-submit="createTask(task)">
         <div class="list">
           <label class="item item-input">
@@ -88,12 +96,40 @@
           <button type="submit" class="button button-block button-positive">Create Task</button>
         </div>
       </form>
-
     </ion-content>
-
   </div>
-
 </script>
+<!--End Creating Task -->
+
+<!-- Edit Task -->
+<script id="edit-task.html" type="text/ng-template">
+  <div class="modal">
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+      <h1 class="title">Edit Task</h1>
+      <button class="button button-clear button-positive" ng-click="closeEditTask()">Cancel</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+      <form ng-submit="updateTask(taskIndex, task)">
+        <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="What do you need to do?" ng-model="task.title">
+          </label>
+          <ion-checkbox ng-model="task.isDone"  ng-model="task.isDone" ng-true-value="'YES'" ng-false-value="'NO'">task is done</ion-checkbox>
+        </div>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive">Update Task</button>
+        </div>
+        <div class="padding">
+          <button t class="button button-block button-assertive" ng-click="deleteTask(taskIndex, task)">Delete Task</button>
+        </div>
+      </form>
+    </ion-content>
+  </div>
+</script>
+<!-- End Edit Task-->
 
 
 </body>
