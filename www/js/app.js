@@ -133,7 +133,7 @@ angular.module('todo', ['ionic', 'todo.services', 'todo.controllers'])
 //     $scope.taskModal = modal;
 //   }, {
 //     scope: $scope
-//   });
+//   });ionic 
 //
 //   // Edit and load the Modal
 //   $ionicModal.fromTemplateUrl('edit-task.html', function(modal) {
