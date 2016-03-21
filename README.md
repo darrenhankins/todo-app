@@ -57,3 +57,5 @@ $ ionic run <PLATFORM>
   * http://edlovesjava.github.io/project/intro/2014/12/20/expand-the-ionic-example.html
 3. Refactored original code and added features
   * http://edlovesjava.github.io/project/intro/2014/12/23/multiple-files.html
+4. Next feature to added (order tasks) ** NOT IMPLEMENTED **
+    * http://edlovesjava.github.io/project/intro/2015/01/01/order-tasks.html
