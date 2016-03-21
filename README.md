@@ -36,6 +36,8 @@ $ ionic serve
 ```
 To run in <PLATFORM> emulator (use ios or andriod for the <PLATFORM>)
 ``` bash
+$ ionic serve (runs in browser)
+
 $ ionic platform add <PLATFORM>
 $ ionic build <PLATFORM>
 $ ionic emulate <PLATFORM>
@@ -52,11 +54,6 @@ $ ionic run <PLATFORM>
   * creates a list in the project
   * utilize [ionic creator](http://ionic.io/products/creator) to create a template
 2. Extended Original ToDo-app code (see link below)
-
-#### Extend the Ionic Example App
-http://edlovesjava.github.io/project/intro/2014/12/20/expand-the-ionic-example.html
-
-3. Refactored original code
-
-#### Refactored Code
-http://edlovesjava.github.io/project/intro/2014/12/23/multiple-files.html
+  * http://edlovesjava.github.io/project/intro/2014/12/20/expand-the-ionic-example.html
+3. Refactored original code and added features
+  * http://edlovesjava.github.io/project/intro/2014/12/23/multiple-files.html
